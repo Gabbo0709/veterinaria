@@ -1,0 +1,68 @@
+# To-Do List
+
+## Proyecto Veterinaria
+
+- [ ] Modelos y repositorios
+    - [x] Manejo de usuarios
+        - Los permisos de los usuarios están definidos en la base de datos por roles. Los roles son:
+            - Administrador (uadmin - pass)
+            - Veterinario (veterina - vet)
+            - Empleado (empleado - emp)
+        - [x] Crear repositorio
+    - [x] Manejo de clientes
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de veterinarios
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de historial médico
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de mascotas
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de empleados
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de proveedores
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [x] Manejo de productos
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+    - [X] Manejo de citas
+        - [X] Crear repositorio
+        - [X] Funciones de CRUD
+    - [x] Manejo de pagos (ventas)
+        - [x] Crear repositorio
+        - [x] Funciones de CRUD
+
+- Renderizador de vistas
+    - [ ] Crear vistas
+        - [ ] Vista de login
+        - [ ] Vista de menú principal
+            - [ ] Menú de administrador
+            - [ ] Menú de veterinario
+            - [ ] Menú de empleado
+        - [ ] Vistas de visualización de datos (tablas)
+            - [ ] Vista de usuarios
+            - [ ] Vista de clientes
+            - [ ] Vista de mascotas
+            - [ ] Vista de historial médico
+            - [ ] Vista de empleados
+            - [ ] Vista de productos
+            - [ ] Vista de veterinarios
+            - [ ] Vista de proveedores
+            - [ ] Vista de citas
+            - [ ] Vista de pagos
+        - [ ] Vistas de creación/modificación de datos
+            - [ ] Vista de creación de clientes
+            - [ ] Vista de creación de mascotas
+            - [ ] Vista de creación de historial médico
+            - [ ] Vista de creación de empleados
+            - [ ] Vista de creación de productos
+            - [ ] Vista de creación de veterinarios
+            - [ ] Vista de creación de proveedores
+            - [ ] Vista de creación de citas
+            - [ ] Vista de creación de pagos
+
