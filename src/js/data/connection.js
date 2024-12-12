@@ -51,6 +51,7 @@ class Connection {
       await this.#connection.end()
       this.#connection = null
     }
+    Connection.instance = null
   }
 
   /**

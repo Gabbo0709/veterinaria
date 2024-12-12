@@ -4,9 +4,10 @@ const $ = selector => document.querySelector(selector)
 
 const tableBody = $('#citas-table-body')
 
+let user = ''
+let pass = ''
+
 const renderTableBody = async (searchQuery) => {
-  const user = await readCookie('userType')
-  const pass = await readCookie('password')
   if (!searchQuery) {
     const citasRepo = await window.api.repositoryOperation('cita', 'getAll', user, pass)
     citasRepo.forEach(cita => createTableBodyRow(cita))
@@ -38,6 +39,8 @@ const createDetailsButton = (numeroCita) => {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
+  user = await readCookie('userType')
+  pass = await readCookie('password')
   await renderTableBody()
   $('#search').addEventListener('input', async () => {
     tableBody.innerHTML = ''

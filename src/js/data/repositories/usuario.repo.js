@@ -22,7 +22,13 @@ class UsuarioRepository {
       this.#connection = await Connection.getInstance(this.dbUsuario, this.dbPassword)
       const connection = this.#connection.getConnection()
       console.log('Conexión', connection)
-      return connection !== null
+      if (connection !== null) {
+        console.log('Usuario válido')
+        return true
+      } else {
+        this.#connection.disconnect()
+        return false
+      }
     } catch (error) {
       console.error('Error al validar el usuario', error)
       return false

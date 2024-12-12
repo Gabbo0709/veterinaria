@@ -4,9 +4,10 @@ const $ = selector => document.querySelector(selector)
 
 const tableBody = $('#clientes-table-body')
 
+let user = ''
+let pass = ''
+
 const renderTableBody = async (searchQuery) => {
-  const user = await readCookie('userType')
-  const pass = await readCookie('password')
   if (!searchQuery) {
     const clientesRepo = await window.api.repositoryOperation('cliente', 'getAll', user, pass)
     clientesRepo.forEach(cliente => createTableBodyRow(cliente))
@@ -35,6 +36,8 @@ const createDetailsButton = (clienteId) => {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
+  user = await readCookie('userType')
+  pass = await readCookie('password')
   await renderTableBody()
   $('#search').addEventListener('input', async () => {
     tableBody.innerHTML = ''

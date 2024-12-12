@@ -15,7 +15,7 @@ const renderMenuUserType = async () => {
 const renderMenuAdmin = () => {
   const buttons = {
     Clientes: 'tables/clientes.html',
-    Mascotas: 'tables/empleados.html',
+    Mascotas: 'tables/mascotas.html',
     'Historial Médico': 'tables/historial-medico.html',
     Proveedores: 'tables/proveedores.html',
     Pagos: 'tables/pagos.html',
@@ -33,7 +33,7 @@ const renderMenuAdmin = () => {
 const renderMenuVeterinario = () => {
   const buttons = {
     Clientes: 'tables/clientes.html',
-    Mascotas: 'tables/empleados.html',
+    Mascotas: 'tables/mascotas.html',
     'Historial Médico': 'table/historial-medico.html',
     Empleados: 'tables/empleados.html',
     Veterinarios: 'tables/veterinarios.html',
@@ -49,7 +49,7 @@ const renderMenuVeterinario = () => {
 const renderMenuEmpleado = () => {
   const buttons = {
     Clientes: 'table/clientes.html',
-    Mascotas: 'table/empleados.html',
+    Mascotas: 'table/mascotas.html',
     Proveedores: 'table/proveedores.html',
     Pagos: 'table/pagos.html',
     Empleados: 'table/empleados.html',

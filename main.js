@@ -60,7 +60,9 @@ ipcMain.handle('cookie-operation', async (event, operation, key, val) => {
   switch (operation) {
     case 'create':
       session.defaultSession.cookies.set({ url, name: key, value: val }).then(() => {
-        console.log('Cookie creada:', key, val)
+        session.defaultSession.cookies.get({ name: key }).then((cookies) => {
+          console.log('Cookie creada:', cookies)
+        })
       }, (error) => {
         console.error('Error al crear la cookie:', error)
       })

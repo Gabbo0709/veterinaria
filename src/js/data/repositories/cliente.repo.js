@@ -31,7 +31,6 @@ class ClientesRepository {
 
   /**
    * Recupera todos los clientes de la base de datos utilizando la conexión del usuario.
-   * @param {Connection} Conexión a la base de datos.
    * @returns {Promise<Cliente[]>} Una promesa que devuelve un arreglo de clientes.
    */
   async getAll () {
@@ -49,7 +48,6 @@ class ClientesRepository {
   /**
    * Recupera un cliente de la base de datos por su ID.
    * @param {number} cliId ID del cliente.
-   * @param {mysql.Connection} Conexión a la base de datos.
    * @returns {Promise<Cliente> | null} Una promesa que devuelve un objeto de tipo Cliente o null si no se encontró el cliente.
    */
   async getCliente (cliId) {
