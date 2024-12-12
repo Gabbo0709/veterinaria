@@ -1,4 +1,5 @@
-import Mascota from '../../models/mascota.model'
+import Mascota from '../../models/mascota.model.js'
+import Connection from '../connection.js'
 
 class MascotaRepository {
   /**
@@ -28,15 +29,21 @@ class MascotaRepository {
     )
   }
 
+  constructor (dbUser, dbPassword) {
+    this.user = dbUser
+    this.password = dbPassword
+  }
+
   /**
    * Recupera todas las mascotas de la base de datos utilizando la conexión del usuario.
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<Mascota[]>} Una promesa que devuelve un arreglo de mascotas.
    */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${MascotaRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => MascotaRepository.mapRowToMascota(row))
     } catch (error) {
       console.error('Error al recuperar las mascotas', error)
@@ -49,10 +56,11 @@ class MascotaRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<Mascota> | null} Una promesa que devuelve un objeto de tipo Mascota o null si no se encontró la mascota.
    */
-  async getMascota (masId, connection) {
+  async getMascota (masId) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${MascotaRepository.#TABLE} WHERE Mas_ID = ?`
-      const [rows] = await connection.execute(query, [masId])
+      const [rows] = await connection.getConnection().execute(query, [masId])
       return MascotaRepository.mapRowToMascota(rows[0]) // Solo se espera un resultado
     } catch (error) {
       console.error('Error al recuperar la mascota', error)
@@ -66,10 +74,11 @@ class MascotaRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<number>} Una promesa que devuelve el ID de la mascota creada.
    */
-  async create (mascota, connection) {
+  async create (mascota) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${MascotaRepository.#TABLE} (Mas_Nom, Mas_Edad, Mas_Sex, Mas_Peso, Mas_Est, Mas_Esp, HisM_ID, Cli_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-      const [result] = await connection.execute(query, [mascota.nombre, mascota.edad, mascota.sexo, mascota.peso, mascota.estado, mascota.especie, mascota.historialMedico, mascota.cliente])
+      const [result] = await connection.getConnection().execute(query, [mascota.nombre, mascota.edad, mascota.sexo, mascota.peso, mascota.estado, mascota.especie, mascota.historialMedico, mascota.cliente])
       return result.insertId
     } catch (error) {
       console.error('Error al crear la mascota', error)
@@ -83,10 +92,11 @@ class MascotaRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<number>} Una promesa que devuelve el número de filas afectadas.
    */
-  async update (mascota, connection) {
+  async update (mascota) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${MascotaRepository.#TABLE} SET Mas_Nom = ?, Mas_Edad = ?, Mas_Sex = ?, Mas_Peso = ?, Mas_Est = ?, Mas_Esp = ?, HisM_ID = ?, Cli_ID = ? WHERE Mas_ID = ?`
-      const [result] = await connection.execute(query, [mascota.nombre, mascota.edad, mascota.sexo, mascota.peso, mascota.estado, mascota.especie, mascota.historialMedico, mascota.cliente, mascota.id])
+      const [result] = await connection.getConnection().execute(query, [mascota.nombre, mascota.edad, mascota.sexo, mascota.peso, mascota.estado, mascota.especie, mascota.historialMedico, mascota.cliente, mascota.id])
       return result.affectedRows
     } catch (error) {
       console.error('Error al actualizar la mascota', error)
@@ -100,10 +110,11 @@ class MascotaRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<number>} Una promesa que devuelve el número de filas afectadas.
    */
-  async delete (masId, connection) {
+  async delete (masId) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${MascotaRepository.#TABLE} WHERE Mas_ID = ?`
-      const [result] = await connection.execute(query, [masId])
+      const [result] = await connection.getConnection().execute(query, [masId])
       return result.affectedRows
     } catch (error) {
       console.error('Error al eliminar la mascota', error)

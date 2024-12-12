@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Clientes</title>
+</head>
+<script defer type="module" src="../../js/renderers/cliente.detail.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <a class="button is-light" href="../tables/clientes.html">Volver</a>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gestión de Clientes</h1>
+            <form id="cliente-form">
+                <div class="field">
+                    <label class="label" for="nombre-cliente">Nombre</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="nombre-cliente" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="tel-cliente">Teléfono</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="tel" id="tel-cliente" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="direccion-cliente">Dirección</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="direccion-cliente" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary is-fullwidth" id="update-button">Actualizar</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-link is-fullwidth" id="create-button">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Pagos</title>
+</head>
+<script defer type="module" src="../../js/renderers/pago.detail.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <a class="button is-light" href="../tables/pagos.html">Volver</a>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gestión de Pagos</h1>
+            <form id="pago-form">
+                <div class="field">
+                    <label class="label" for="fecha-pago">Fecha</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="date" id="fecha-pago" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="hora-pago">Hora</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="time" id="hora-pago" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="total-pago">Total</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="number" id="total-pago" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="tipo-venta">Tipo de Venta</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="tipo-venta" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary is-fullwidth"
+                            id="update-button">Actualizar</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-link is-fullwidth" id="create-button">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

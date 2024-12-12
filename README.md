@@ -2,7 +2,7 @@
 
 ## Proyecto Veterinaria
 
-- [ ] Modelos y repositorios
+- [x] Modelos y repositorios
     - [x] Manejo de usuarios
         - Los permisos de los usuarios están definidos en la base de datos por roles. Los roles son:
             - Administrador (uadmin - pass)
@@ -37,7 +37,7 @@
         - [x] Crear repositorio
         - [x] Funciones de CRUD
 
-- Renderizador de vistas
+- [ ] Renderizador de vistas
     - [ ] Crear vistas
         - [ ] Vista de login
         - [ ] Vista de menú principal

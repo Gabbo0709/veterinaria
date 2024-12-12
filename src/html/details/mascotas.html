@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Mascotas</title>
+</head>
+<script defer type="module" src="../../js/renderers/mascota.detail.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <a class="button is-light" href="../tables/mascotas.html">Volver</a>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gestión de Mascotas</h1>
+            <form id="mascota-form">
+                <div class="field">
+                    <label class="label" for="nombre-mascota">Nombre</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="nombre-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="edad-mascota">Edad</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="number" id="edad-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="sexo-mascota">Sexo</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="sexo-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="peso-mascota">Peso</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="number" id="peso-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="estatura-mascota">Estatura</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="number" id="estatura-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="especie-mascota">Especie</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="especie-mascota" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="historial-medico-select">Historial Médico</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="historial-medico-select"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="cliente-select">Cliente</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="cliente-select"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary is-fullwidth"
+                            id="update-button">Actualizar</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-link is-fullwidth" id="create-button">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

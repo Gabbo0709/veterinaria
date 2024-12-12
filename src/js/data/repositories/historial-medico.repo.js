@@ -1,4 +1,5 @@
-import HistorialMedico from '../../models/historial-medico.model'
+import HistorialMedico from '../../models/historial-medico.model.js'
+import Connection from '../connection.js'
 
 class HistorialMedicoRepository {
   /**
@@ -25,15 +26,21 @@ class HistorialMedicoRepository {
     )
   }
 
+  constructor (dbUser, dbPassword) {
+    this.user = dbUser
+    this.password = dbPassword
+  }
+
   /**
      * Recupera todos los historiales médicos de la base de datos utilizando la conexión del usuario.
      * @param {Connection} connection Conexión a la base de datos.
      * @returns {Promise<HistorialMedico[]>} Una promesa que devuelve un arreglo de historiales médicos.
      */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${HistorialMedicoRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => HistorialMedicoRepository.mapRowToHistorialMedico(row))
     } catch (error) {
       console.error('Error al recuperar los historiales médicos', error)
@@ -46,10 +53,11 @@ class HistorialMedicoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<HistorialMedico> | null} Una promesa que devuelve un objeto de tipo HistorialMedico o null si no se encontró el historial médico.
      */
-  async getHistorialMedico (hisId, connection) {
+  async getHistorialMedico (hisId) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${HistorialMedicoRepository.#TABLE} WHERE HisM_ID = ?`
-      const [rows] = await connection.execute(query, [hisId])
+      const [rows] = await connection.getConnection().execute(query, [hisId])
       return HistorialMedicoRepository.mapRowToHistorialMedico(rows[0]) // Solo se espera un resultado
     } catch (error) {
       console.error('Error al recuperar el historial médico', error)
@@ -63,10 +71,11 @@ class HistorialMedicoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<number>} Una promesa que devuelve el ID del historial médico creado.
      */
-  async create (historialMedico, connection) {
+  async create (historialMedico) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${HistorialMedicoRepository.#TABLE} (HisM_Alerg, HisM_Diag, HisM_DurT, HisM_Med, Vet_CURP) VALUES (?, ?, ?, ?, ?)`
-      const [result] = await connection.execute(query, [historialMedico.alergia, historialMedico.diagnostico, historialMedico.duracionTratamiento, historialMedico.medicina, historialMedico.veterinarioCurp])
+      const [result] = await connection.getConnection().execute(query, [historialMedico.alergia, historialMedico.diagnostico, historialMedico.duracionTratamiento, historialMedico.medicina, historialMedico.veterinarioCurp])
       return result.insertId
     } catch (error) {
       console.error('Error al crear el historial médico', error)
@@ -80,11 +89,12 @@ class HistorialMedicoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<boolean>} Una promesa que devuelve true si se actualizó el historial médico.
      */
-  async update (historialMedico, connection) {
+  async update (historialMedico) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${HistorialMedicoRepository.#TABLE} SET HisM_Alerg = ?, HisM_Diag = ?, HisM_DurT = ?, HisM_Med = ?, Vet_CURP = ? WHERE HisM_ID = ?`
       const values = [historialMedico.alergia, historialMedico.diagnostico, historialMedico.duracionTratamiento, historialMedico.medicina, historialMedico.veterinarioCurp, historialMedico.id]
-      await connection.execute(query, values)
+      await connection.getConnection().execute(query, values)
       return true
     } catch (error) {
       console.error('Error al actualizar el historial médico', error)
@@ -98,10 +108,11 @@ class HistorialMedicoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<boolean>} Una promesa que devuelve true si se eliminó el historial médico.
      */
-  async delete (hisId, connection) {
+  async delete (hisId) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${HistorialMedicoRepository.#TABLE} WHERE HisM_ID = ?`
-      await connection.execute(query, [hisId])
+      await connection.getConnection().execute(query, [hisId])
       return true
     } catch (error) {
       console.error('Error al eliminar el historial médico', error)

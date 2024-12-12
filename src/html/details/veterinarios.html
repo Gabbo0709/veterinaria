@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Veterinarios</title>
+</head>
+<script defer type="module" src="../../js/renderers/veterinario.detail.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <a class="button is-light" href="../tables/veterinarios.html">Volver</a>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gestión de Veterinarios</h1>
+            <form id="veterinario-form">
+                <div class="field">
+                    <label class="label" for="curp-veterinario">CURP</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="curp-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="nombre-veterinario">Nombre</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="nombre-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="telefono-veterinario">Teléfono</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="tel" id="telefono-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="direccion-veterinario">Dirección</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="direccion-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="rfc-veterinario">RFC</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="rfc-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="nss-veterinario">NSS</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="nss-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="especialidad-veterinario">Especialidad</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="especialidad-veterinario" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary is-fullwidth"
+                            id="update-button">Actualizar</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-link is-fullwidth" id="create-button">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

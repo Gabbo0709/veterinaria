@@ -1,5 +1,4 @@
-import Connection from '../connection'
-
+import Connection from '../connection.js'
 class UsuarioRepository {
   /**
    * @type {Connection} Instancia de la conexión a la base de datos del usuario.
@@ -18,8 +17,11 @@ class UsuarioRepository {
    */
   async validateUser () {
     try {
+      console.log('Usuario:', this.dbUsuario)
+      console.log('Contraseña:', this.dbPassword)
       this.#connection = await Connection.getInstance(this.dbUsuario, this.dbPassword)
       const connection = this.#connection.getConnection()
+      console.log('Conexión', connection)
       return connection !== null
     } catch (error) {
       console.error('Error al validar el usuario', error)

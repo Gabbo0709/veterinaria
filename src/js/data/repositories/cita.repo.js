@@ -1,4 +1,5 @@
-import Cita from '../../models/cita.model'
+import Cita from '../../models/cita.model.js'
+import Connection from '../connection.js'
 
 class CitasRepository {
   /**
@@ -26,15 +27,21 @@ class CitasRepository {
     )
   }
 
+  constructor (dbUser, dbPassword) {
+    this.user = dbUser
+    this.password = dbPassword
+  }
+
   /**
    * Recupera todas las citas de la base de datos utilizando la conexión del usuario.
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<Cita[]>} Una promesa que devuelve un arreglo de citas.
    */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${CitasRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => CitasRepository.mapRowToCita(row))
     } catch (error) {
       console.error('Error al recuperar las citas', error)
@@ -47,11 +54,13 @@ class CitasRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<Cita> | null} Una promesa que devuelve un objeto de tipo Cita o null si no se encontró la cita.
   */
-  async getCita (citaNum, connection) {
+  async getCita (citaNum) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${CitasRepository.#TABLE} WHERE Cit_Num = ?`
-      const [rows] = await connection.execute(query, [citaNum])
-      return CitasRepository.mapRowToCita(rows[0]) // Solo se espera un resultado
+      const [rows] = await connection.getConnection().execute(query, [citaNum])
+      console.log('Rows:', rows)
+      return CitasRepository.mapRowToCita(rows[0])
     } catch (error) {
       console.error('Error al recuperar la cita', error)
       return null
@@ -64,11 +73,12 @@ class CitasRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<number>} Una promesa que devuelve el número de la cita insertada.
    */
-  async create (cita, connection) {
+  async create (cita) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${CitasRepository.#TABLE} (Cit_Fech, Cit_Hora, Cit_Est, Cit_Mot, Cli_ID, Vet_CURP) VALUES (?, ?, ?, ?, ?, ?)`
       const values = [cita.fecha, cita.hora, cita.estado, cita.motivo, cita.clienteId, cita.veterinarioCurp]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.insertId
     } catch (error) {
       console.error('Error al insertar la cita', error)
@@ -84,11 +94,12 @@ class CitasRepository {
    *
    * @returns {Promise<boolean>} Una promesa que devuelve true si la cita se actualizó correctamente, false en caso contrario.
    */
-  async update (cita, connection) {
+  async update (cita) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${CitasRepository.#TABLE} SET Cit_Fech = ?, Cit_Hora = ?, Cit_Est = ?, Cit_Mot = ? WHERE Cit_Num = ?`
       const values = [cita.fecha, cita.hora, cita.estado, cita.motivo, cita.numero]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al actualizar la cita', error)
@@ -104,10 +115,11 @@ class CitasRepository {
    *
    * @returns {Promise<boolean>} Una promesa que devuelve true si la cita se eliminó correctamente, false en caso contrario.
    */
-  async delete (citaNum, connection) {
+  async delete (citaNum) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${CitasRepository.#TABLE} WHERE Cit_Num = ?`
-      const [result] = await connection.execute(query, [citaNum])
+      const [result] = await connection.getConnection().execute(query, [citaNum])
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al eliminar la cita', error)

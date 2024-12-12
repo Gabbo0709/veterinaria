@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Productos</title>
+</head>
+<script defer type="module" src="../../js/renderers/producto.table.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="field is-grouped">
+                <div class="control">
+                    <input class="input" type="text" id="search" placeholder="Buscar por nombre de producto">
+                </div>
+                <div class="control">
+                    <a class="button is-primary" href="../details/productos.html">Crear Producto</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Lista de Productos</h1>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Fecha de Caducidad</th>
+                        <th>ID Proveedor</th>
+                        <th><span>&nbsp;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="productos-table-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

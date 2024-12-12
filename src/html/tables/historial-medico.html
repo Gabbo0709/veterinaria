@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Historial Médico</title>
+</head>
+<script defer type="module" src="../../js/renderers/historial-medico.table.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="field is-grouped">
+                <div class="control">
+                    <input class="input" type="text" id="search" placeholder="Buscar por diagnóstico">
+                </div>
+                <div class="control">
+                    <a class="button is-primary" href="../details/historial-medico.html">Crear Historial Médico</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Lista de Historiales Médicos</h1>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Diagnóstico</th>
+                        <th>Tratamiento</th>
+                        <th>CURP Veterinario</th>
+                        <th>ID Mascota</th>
+                        <th><span>&nbsp;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="historial-medico-table-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

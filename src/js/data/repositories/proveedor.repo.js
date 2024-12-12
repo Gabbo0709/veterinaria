@@ -1,4 +1,5 @@
-import Proveedor from '../../models/proveedor.model'
+import Proveedor from '../../models/proveedor.model.js'
+import Connection from '../connection.js'
 
 class ProveedorRepository {
   /**
@@ -25,15 +26,21 @@ class ProveedorRepository {
     )
   }
 
+  constructor (dbUser, dbPassword) {
+    this.user = dbUser
+    this.password = dbPassword
+  }
+
   /**
      * Recupera todos los proveedores de la base de datos utilizando la conexión del usuario.
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<Proveedor[]>} Una promesa que devuelve un arreglo de proveedores.
      */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${ProveedorRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => ProveedorRepository.mapRowToProveedor(row))
     } catch (error) {
       console.error('Error al recuperar los proveedores', error)
@@ -43,13 +50,13 @@ class ProveedorRepository {
   /**
      * Recupera un proveedor de la base de datos por su ID.
      * @param {number} id ID del proveedor.
-     * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<Proveedor> | null} Una promesa que devuelve un objeto de tipo Proveedor o null si no se encontró el proveedor.
     */
-  async getProveedor (id, connection) {
+  async getProveedor (id) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${ProveedorRepository.#TABLE} WHERE Prov_ID = ?`
-      const [rows] = await connection.execute(query, [id])
+      const [rows] = await connection.getConnection().execute(query, [id])
       return ProveedorRepository.mapRowToProveedor(rows[0]) // Solo se espera un resultado
     } catch (error) {
       console.error('Error al recuperar el proveedor', error)
@@ -60,14 +67,14 @@ class ProveedorRepository {
   /**
      * Inserta un nuevo proveedor en la base de datos.
      * @param {Proveedor} proveedor Objeto de tipo Proveedor.
-     * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<number>} Una promesa que devuelve el ID del proveedor insertado.
      */
-  async create (proveedor, connection) {
+  async create (proveedor) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${ProveedorRepository.#TABLE} (Prov_Nom, Prov_Cont, Prov_Dire, Prov_Tel, Prov_TSum) VALUES (?, ?, ?, ?, ?)`
       const values = [proveedor.nombre, proveedor.contacto, proveedor.direccion, proveedor.telefono, proveedor.tipoProducto]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.insertId
     } catch (error) {
       console.error('Error al insertar el proveedor', error)
@@ -79,15 +86,15 @@ class ProveedorRepository {
      * Actualiza un proveedor en la base de datos a partir de su ID.
      *
      * @param {Proveedor} proveedor Objeto de tipo Proveedor.
-     * @param {mysql.Connection} connection Conexión a la base de datos.
      *
      * @returns {Promise<boolean>} Una promesa que devuelve true si el proveedor se actualizó correctamente, false en caso contrario.
      */
-  async update (proveedor, connection) {
+  async update (proveedor) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${ProveedorRepository.#TABLE} SET Prov_Nom = ?, Prov_Cont = ?, Prov_Dire = ?, Prov_Tel = ?, Prov_TSum = ? WHERE Prov_ID = ?`
       const values = [proveedor.nombre, proveedor.contacto, proveedor.direccion, proveedor.telefono, proveedor.tipoProducto, proveedor.id]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al actualizar el proveedor', error)
@@ -99,14 +106,14 @@ class ProveedorRepository {
      * Elimina un proveedor de la base de datos a partir de su ID.
      *
      * @param {number} id ID del proveedor.
-     * @param {mysql.Connection} connection Conexión a la base de datos.
      *
      * @returns {Promise<boolean>} Una promesa que devuelve true si el proveedor se eliminó correctamente, false en caso contrario.
      */
-  async delete (id, connection) {
+  async delete (id) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${ProveedorRepository.#TABLE} WHERE Prov_ID = ?`
-      const [result] = await connection.execute(query, [id])
+      const [result] = await connection.getConnection().execute(query, [id])
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al eliminar el proveedor', error)

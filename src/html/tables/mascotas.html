@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Mascotas</title>
+</head>
+<script defer type="module" src="../../js/renderers/mascota.table.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="field is-grouped">
+                <div class="control">
+                    <input class="input" type="text" id="search" placeholder="Buscar por nombre de mascota">
+                </div>
+                <div class="control">
+                    <a class="button is-primary" href="../details/mascotas.html">Crear Mascota</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Lista de Mascotas</h1>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>Peso</th>
+                        <th>Estatura</th>
+                        <th>Especie</th>
+                        <th>ID Historial Médico</th>
+                        <th>ID Cliente</th>
+                        <th><span>&nbsp;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="mascotas-table-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

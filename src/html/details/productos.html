@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Productos</title>
+</head>
+<script defer type="module" src="../../js/renderers/producto.detail.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <a class="button is-light" href="../tables/productos.html">Volver</a>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gestión de Productos</h1>
+            <form id="producto-form">
+                <div class="field">
+                    <label class="label" for="tipo-producto">Tipo</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="tipo-producto" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="nombre-producto">Nombre</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="text" id="nombre-producto" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="precio-producto">Precio</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="number" id="precio-producto" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="fecha-ingreso-producto">Fecha de Ingreso</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="date" id="fecha-ingreso-producto" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="fecha-caducidad-producto">Fecha de Caducidad</label>
+                    <div class="control">
+                        <input class="input is-fullwidth" type="date" id="fecha-caducidad-producto" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="proveedor-select">Proveedor</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="proveedor-select"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary is-fullwidth"
+                            id="update-button">Actualizar</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-link is-fullwidth" id="create-button">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
-import Producto from '../../models/producto.model'
+import Producto from '../../models/producto.model.js'
+import Connection from '../connection.js'
 
 class ProductoRepository {
   /**
@@ -26,15 +27,21 @@ class ProductoRepository {
     )
   }
 
+  constructor (dbUser, dbPassword) {
+    this.user = dbUser
+    this.password = dbPassword
+  }
+
   /**
      * Recupera todos los productos de la base de datos utilizando la conexión del usuario.
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<Producto[]>} Una promesa que devuelve un arreglo de productos.
      */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${ProductoRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => ProductoRepository.mapRowToProducto(row))
     } catch (error) {
       console.error('Error al recuperar los productos', error)
@@ -47,10 +54,11 @@ class ProductoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<Producto> | null} Una promesa que devuelve un objeto de tipo Producto o null si no se encontró el producto.
     */
-  async getProducto (id, connection) {
+  async getProducto (id) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${ProductoRepository.#TABLE} WHERE Prod_ID = ?`
-      const [rows] = await connection.execute(query, [id])
+      const [rows] = await connection.getConnection().execute(query, [id])
       return ProductoRepository.mapRowToProducto(rows[0]) // Solo se espera un resultado
     } catch (error) {
       console.error('Error al recuperar el producto', error)
@@ -64,11 +72,12 @@ class ProductoRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<number>} Una promesa que devuelve el ID del producto insertado.
      */
-  async create (producto, connection) {
+  async create (producto) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${ProductoRepository.#TABLE} (Prod_Tipo, Prod_Nom, Prod_Prec, Prod_FechIn, Prod_FechCad, Prov_ID) VALUES (?, ?, ?, ?, ?, ?)`
       const values = [producto.tipo, producto.nombre, producto.precio, producto.fechaIngreso, producto.fechaCaducidad, producto.proveedorId]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.insertId
     } catch (error) {
       console.error('Error al insertar el producto', error)
@@ -84,11 +93,12 @@ class ProductoRepository {
      *
      * @returns {Promise<boolean>} Una promesa que devuelve true si el producto se actualizó correctamente, false en caso contrario.
      */
-  async update (producto, connection) {
+  async update (producto) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${ProductoRepository.#TABLE} SET Prod_Tipo = ?, Prod_Nom = ?, Prod_Prec = ?, Prod_FechIn = ?, Prod_FechCad = ?, Prov_ID = ? WHERE Prod_ID = ?`
       const values = [producto.tipo, producto.nombre, producto.precio, producto.fechaIngreso, producto.fechaCaducidad, producto.proveedorId, producto.id]
-      const [result] = await connection.execute(query, values)
+      const [result] = await connection.getConnection().execute(query, values)
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al actualizar el producto', error)
@@ -104,10 +114,11 @@ class ProductoRepository {
      *
      * @returns {Promise<boolean>} Una promesa que devuelve true si el producto se eliminó correctamente, false en caso contrario.
      */
-  async delete (id, connection) {
+  async delete (id) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${ProductoRepository.#TABLE} WHERE Prod_ID = ?`
-      const [result] = await connection.execute(query, [id])
+      const [result] = await connection.getConnection().execute(query, [id])
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al eliminar el producto', error)

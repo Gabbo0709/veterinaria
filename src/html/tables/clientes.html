@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../../css/bulma.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Clientes</title>
+</head>
+<script defer type="module" src="../../js/renderers/cliente.table.renderer.js"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="field is-grouped">
+                <div class="control">
+                    <input class="input" type="text" id="search" placeholder="Buscar por nombre de cliente">
+                </div>
+                <div class="control">
+                    <a class="button is-primary" href="../details/clientes.html">Crear Cliente</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Lista de Clientes</h1>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th><span>&nbsp;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-table-body">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

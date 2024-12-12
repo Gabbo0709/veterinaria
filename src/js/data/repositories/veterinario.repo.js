@@ -1,4 +1,5 @@
-import Veterinario from '../../models/veterinario.model'
+import Veterinario from '../../models/veterinario.model.js'
+import Connection from '../connection.js'
 
 class VeterinariosRepository {
   /**
@@ -26,15 +27,21 @@ class VeterinariosRepository {
     )
   }
 
+  constructor (dbUsuario, dbPassword) {
+    this.dbUsuario = dbUsuario
+    this.dbPassword = dbPassword
+  }
+
   /**
    * Recupera todos los veterinarios de la base de datos utilizando la conexión del usuario.
    * @param {Connection} connection Conexión a la base de datos.
    * @returns {Promise<Veterinario[]>} Una promesa que devuelve un arreglo de veterinarios.
    */
-  async getAll (connection) {
+  async getAll () {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${VeterinariosRepository.#TABLE}`
-      const [rows] = await connection.query(query)
+      const [rows] = await connection.getConnection().query(query)
       return rows.map(row => VeterinariosRepository.mapRowToVeterinario(row))
     } catch (error) {
       console.error('Error al recuperar los veterinarios', error)
@@ -47,10 +54,11 @@ class VeterinariosRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<Veterinario> | null} Una promesa que devuelve un objeto de tipo Veterinario o null si no se encontró el veterinario.
    */
-  async getVeterinario (vetCurp, connection) {
+  async getVeterinario (vetCurp) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `SELECT * FROM ${VeterinariosRepository.#TABLE} WHERE Vet_CURP = ?`
-      const [rows] = await connection.execute(query, [vetCurp])
+      const [rows] = await connection.getConnection().execute(query, [vetCurp])
       return VeterinariosRepository.mapRowToVeterinario(rows[0]) // Solo se espera un resultado
     } catch (error) {
       console.error('Error al recuperar el veterinario', error)
@@ -64,10 +72,11 @@ class VeterinariosRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<string>} Una promesa que devuelve el CURP del veterinario creado.
   */
-  async create (veterinario, connection) {
+  async create (veterinario) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `INSERT INTO ${VeterinariosRepository.#TABLE} (Vet_CURP, Vet_Nom, Vet_Tel, Vet_Direc, Vet_RFC, Vet_NSS, Vet_Esp) VALUES (?, ?, ?, ?, ?, ?, ?)`
-      const result = await connection.execute(query, [
+      const result = await connection.getConnection().execute(query, [
         veterinario.curp,
         veterinario.nombre,
         veterinario.telefono,
@@ -89,10 +98,11 @@ class VeterinariosRepository {
    * @param {mysql.Connection} connection Conexión a la base de datos.
    * @returns {Promise<boolean>} Una promesa que indica si la actualización fue exitosa.
   */
-  async update (veterinario, connection) {
+  async update (veterinario) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `UPDATE ${VeterinariosRepository.#TABLE} SET Vet_Nom = ?, Vet_Tel = ?, Vet_Direc = ?, Vet_RFC = ?, Vet_NSS = ?, Vet_Esp = ? WHERE Vet_CURP = ?`
-      const result = await connection.execute(query, [
+      const result = await connection.getConnection().execute(query, [
         veterinario.nombre,
         veterinario.telefono,
         veterinario.direccion,
@@ -114,10 +124,11 @@ class VeterinariosRepository {
      * @param {mysql.Connection} connection Conexión a la base de datos.
      * @returns {Promise<boolean>} Una promesa que indica si la eliminación fue exitosa.
     */
-  async delete (vetCurp, connection) {
+  async delete (vetCurp) {
     try {
+      const connection = await Connection.getInstance(this.user, this.password)
       const query = `DELETE FROM ${VeterinariosRepository.#TABLE} WHERE Vet_CURP = ?`
-      const result = await connection.execute(query, [vetCurp])
+      const result = await connection.getConnection().execute(query, [vetCurp])
       return result.affectedRows > 0
     } catch (error) {
       console.error('Error al eliminar el veterinario', error)
