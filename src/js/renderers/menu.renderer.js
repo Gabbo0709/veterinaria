@@ -48,14 +48,14 @@ const renderMenuVeterinario = () => {
 
 const renderMenuEmpleado = () => {
   const buttons = {
-    Clientes: 'table/clientes.html',
-    Mascotas: 'table/mascotas.html',
-    Proveedores: 'table/proveedores.html',
-    Pagos: 'table/pagos.html',
-    Empleados: 'table/empleados.html',
-    Veterinarios: 'table/veterinarios.html',
-    Productos: 'table/productos.html',
-    Citas: 'table/citas.html'
+    Clientes: 'tables/clientes.html',
+    Mascotas: 'tables/mascotas.html',
+    Proveedores: 'tables/proveedores.html',
+    Pagos: 'tables/pagos.html',
+    Empleados: 'tables/empleados.html',
+    Veterinarios: 'tables/veterinarios.html',
+    Productos: 'tables/productos.html',
+    Citas: 'tables/citas.html'
   }
   Object.keys(buttons).forEach(key => {
     createMenuButton(key, buttons[key])
