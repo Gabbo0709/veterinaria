@@ -25,10 +25,10 @@ const readCookie = async key => {
  * @retunr {boolean} Confirmación de que se borró la cookie
  */
 const deleteCookie = async key => {
-  const cookie = await window.api.cookieOperation('delete', key, null)
+  await window.api.cookieOperation('delete', key, null)
   try {
     const cookie = readCookie(key)
-    return !(cookie != null || cookie != undefined)
+    return !(cookie !== null || cookie !== undefined)
   } catch {
     return true
   }
@@ -37,9 +37,11 @@ const deleteCookie = async key => {
 /**
  * Cierra la sesión
  */
-const logout = async => {
-  await deleteCookie('userType')
-  await deleteCookie('password')
+const logout = async (reponse) => {
+  const deletedCookies = await Promise.all([deleteCookie('userType'), deleteCookie('password')])
+  if (deletedCookies.every(cookie => cookie)) {
+    window.location.href = reponse
+  }
 }
 
 /**

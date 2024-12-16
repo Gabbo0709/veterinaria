@@ -1,4 +1,4 @@
-import { readCookie, createHTMLElement } from '../utils/utils.js'
+import { readCookie, createHTMLElement, logout } from '../utils/utils.js'
 const $ = selector => document.querySelector(selector)
 
 const menuSection = $('#menu')
@@ -57,7 +57,6 @@ const renderMenuEmpleado = () => {
     Productos: 'table/productos.html',
     Citas: 'table/citas.html'
   }
-
   Object.keys(buttons).forEach(key => {
     createMenuButton(key, buttons[key])
   })
@@ -70,4 +69,11 @@ const createMenuButton = (text, link) => {
   menuSection.appendChild(divButton)
 }
 
-window.addEventListener('DOMContentLoaded', renderMenuUserType())
+const logoutNow = async () => {
+  await logout('../login.html')
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  $('#logout-button').addEventListener('click', logoutNow)
+  await renderMenuUserType()
+})

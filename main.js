@@ -61,23 +61,15 @@ ipcMain.handle('repository-operation', async (event, repositoryName, methodName,
 })
 
 ipcMain.handle('cookie-operation', async (event, operation, key, val) => {
-  switch (operation) {
-    case 'create':
-      session.defaultSession.cookies.set({ url, name: key, value: val }).then(() => {
-        session.defaultSession.cookies.get({ name: key }).then((cookies) => {
-          console.log('Cookie creada:', cookies)
-        })
-      }, (error) => {
-        console.error('Error al crear la cookie:', error)
-      })
-      break
-    case 'read':
-      return session.defaultSession.cookies.get({ name: key });
-      break
-    case 'delete':
-      session.defaultSession.cookies.remove(url, key).then(() => {
-        console.log('Cookie eliminada:', key)
-      })
+  if (operation === 'create') {
+    await session.defaultSession.cookies.set({ url, name: key, value: val })
+    const cookies = await session.defaultSession.cookies.get({ name: key })
+    console.log('Cookie creada:', cookies)
+  } else if (operation === 'delete') {
+    await session.defaultSession.cookies.remove(url, key)
+    console.log('Cookie eliminada:', key)
+  } else if (operation === 'read') {
+    return await session.defaultSession.cookies.get({ name: key })
   }
 })
 

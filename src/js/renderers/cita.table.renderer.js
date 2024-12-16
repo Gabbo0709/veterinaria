@@ -41,6 +41,7 @@ const createDetailsButton = (numeroCita) => {
 window.addEventListener('DOMContentLoaded', async () => {
   user = await readCookie('userType')
   pass = await readCookie('password')
+
   await renderTableBody()
   $('#search').addEventListener('input', async () => {
     tableBody.innerHTML = ''
