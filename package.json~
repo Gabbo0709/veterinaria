@@ -21,10 +21,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "dotenv": "16.4.7",
-    "mysql2": "^3.11.5"
-  },
   "devDependencies": {
     "@babel/core": "7.26.0",
     "@babel/preset-env": "7.26.0",

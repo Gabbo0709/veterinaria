@@ -37,7 +37,7 @@ const deleteCookie = async key => {
 /**
  * Cierra la sesión
  */
-const logout = async => {
+const logout = () => {
   await deleteCookie('userType')
   await deleteCookie('password')
 }

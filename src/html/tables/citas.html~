@@ -10,11 +10,11 @@
     <title>Citas</title>
 </head>
 <script defer type="module" src="../../js/renderers/cita.table.renderer.js"></script>
-<script defer type="module" src="../../js/utils/utils.js"></script>
+
 <body>
     <section class="section">
 	<div class"container">
-	    <button class="button is-danger" onclick="logout()" id="logout" type="button">
+	    <button class="button is-danger" id="logout" type="button">
 	        Cerrar sesión
    	    <button>
 	</div>

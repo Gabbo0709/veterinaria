@@ -1,4 +1,3 @@
-import config from '../config/config.js'
 import mysql from 'mysql2/promise'
 
 class Connection {
@@ -26,14 +25,14 @@ class Connection {
    * @returns {Promise<void>} Una promesa que no devuelve nada.
    *
    */
-  async #connect (_user, _password) {
+  async #connect (_user, _password, _host, _database) {
     try {
       if (!this.#connection) {
         this.#connection = await mysql.createConnection({
-          host: config.DB_CONNECTION.host,
+          host: _host,
           user: _user,
           password: _password,
-          database: 'Veterinaria'
+          database: _database
         })
       }
     } catch (error) {
@@ -62,11 +61,7 @@ class Connection {
    * @returns {Promise<Connection>} Una promesa que devuelve la instancia de la conexión. De tipo Connection.
    */
   static async getInstance (_user, _password) {
-    if (Connection.instance == null) {
-      Connection.instance = new Connection()
-      await Connection.instance.#connect(_user, _password)
-    }
-    return Connection.instance
+    return Connection.instance.#connect(_user, _password, 'localhost', 'Veterinaria')
   }
 
   /**
